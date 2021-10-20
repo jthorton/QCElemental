@@ -40,7 +40,7 @@ def from_schema(molschema: Dict, *, nonphysical: bool = False, verbose: int = 1)
             )
         )
 
-    if "fragments" in ms:
+    if "fragments" in ms and ms["fragments"] is not None:
         frag_pattern = ms["fragments"]
     else:
         frag_pattern = [np.arange(len(ms["symbols"]))]

@@ -373,6 +373,9 @@ class Molecule(ProtoModel):
 
     @validator("masses_", "real_")
     def _must_be_n(cls, v, values, **kwargs):
+        if v is None:
+            return None
+
         n = len(values["symbols"])
         if len(v) != n:
             raise ValueError("Masses and Real must be same number of entries as Symbols")
@@ -382,7 +385,7 @@ class Molecule(ProtoModel):
     def _populate_real(cls, v, values, **kwargs):
         # Can't use geometry here since its already been validated and not in values
         n = len(values["symbols"])
-        if len(v) == 0:
+        if v is None or len(v) == 0:
             v = np.array([True for _ in range(n)])
         return v
 
